@@ -1,0 +1,29 @@
+nodes:
+  - address: 54.180.136.191
+    internal_address: 172.16.1.59
+    ssh_key_path: ./.output/id_rsa
+    user: ubuntu
+    role: [controlplane, worker, etcd]
+  - address: 52.78.122.211
+    internal_address: 172.16.3.141
+    ssh_key_path: ./.output/id_rsa
+    user: ubuntu
+    role: [controlplane, worker, etcd]
+  - address: 13.125.3.219
+    internal_address: 172.16.1.113
+    ssh_key_path: ./.output/id_rsa
+    user: ubuntu
+    role: [controlplane, worker, etcd]
+
+services:
+  etcd:
+    snapshot: true
+    creation: 6h
+    retention: 24h
+
+# Required for external TLS termination with
+# ingress-nginx v0.22+
+ingress:
+  provider: nginx
+  options:
+    use-forwarded-headers: "true"
